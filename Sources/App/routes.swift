@@ -7,6 +7,15 @@ public func routes(_ router: Router) throws {
         return "Hello, world!"
     }
 
+    let helloController = HelloController()
+    router.get("greet", use: helloController.greet)
+
+    router.get("users", Int.parameter) { req -> String in
+    let id = try req.parameters.next(Int.self)
+    return "requested id #\(id)"
+    }
+
+
     // Example of configuring a controller
     let todoController = TodoController()
     router.get("todos", use: todoController.index)
